@@ -13,7 +13,7 @@ export default function ResultTable() {
       <div className="w-full text-center py-4">
         <h1 className="text-2xl font-bold">The result Table</h1>
         <p>
-          click "Finish" to optimize your business, or go back to modify your
+          click &quot;Finish&quot; to optimize your business, or go back to modify your
           data.
         </p>
       </div>
@@ -36,7 +36,7 @@ export default function ResultTable() {
                 <tr key={constraint.id} className="border-b dark:border-gray-700">
                   <td className="py-3 px-4 font-medium">{constraint.name}</td>
                   {Products.map((product) => (
-                    <td className="py-3 px-4">{constraint.productProductionRates[product.name]} product/hour</td>
+                    <td key={product.id} className="py-3 px-4">{constraint.productProductionRates[product.name]} product/hour</td>
                   ))}
                   <td className="py-3 px-4 text-right">{constraint.weeklyCapacityHours} hours/week</td>
                 </tr>

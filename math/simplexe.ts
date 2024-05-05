@@ -10,6 +10,11 @@ export interface WorkshopI {
   productProductionRates: { [productName: string]: number | 0 };
   weeklyCapacityHours: number;
 }
+
+export interface resultProductI{
+  id: number;
+  quantity: number;
+}
 type Matrix = number[][];
 
 //  matrice simplexe = [
@@ -86,7 +91,7 @@ function iteration(
   }
   const valeur_pivot = matrice[ligne_pivot][col_pivot];
   // ====> GAUSS:
-  // etape1: ligne_ivot = Ligne_pivot / valeur_pivote
+  // etape1: ligne_pivot = Ligne_pivot / valeur_pivote
   for (let i = 0; i < matrice[ligne_pivot].length; i++) {
     matrice[ligne_pivot][i] /= valeur_pivot;
   }
@@ -94,7 +99,6 @@ function iteration(
   // etape2: Lx = Lx - Va.Lp
   for (let i = 0; i < matrice.length; i++) {
     if (i == ligne_pivot) continue;
-
     const Va = matrice[i][col_pivot];
     for (let j = 0; j < matrice[i].length; j++) {
       matrice[i][j] = matrice[i][j] - Va * matrice[ligne_pivot][j];
@@ -113,10 +117,28 @@ function checkMatrixResolved(matrice: Matrix): boolean {
   return true;
 }
 
-function solve_simplexe(
+function interpret_results(nbrProducts: number, matrice: Matrix, capacities: number[]): resultProductI[] {
+  let result_products:  resultProductI[] = [];
+  for(let i = 1; i < matrice.length; i++){
+    for(let j = 1; j <= nbrProducts; j++){
+      if(matrice[i][j] == 1){
+        const result_product: resultProductI = {
+          id: j,
+          quantity: capacities[i]
+        }
+        result_products.push(result_product);
+      }
+    }
+  }
+
+  return result_products;
+
+}
+
+export function solve_simplexe(
   products: ProductI[],
   constraints: WorkshopI[]
-): number[] {
+): resultProductI[] {
   let matrice = simplexeMatrice(products, constraints);
   let capacities = constraints_capacity(constraints);
   let i = 0;
@@ -129,11 +151,11 @@ function solve_simplexe(
     matrice = updatedMatrice;
     capacities = updatedCapacities;
 
-    console.log("Iteration: " + i 
-    ,"matrice: \n" + matrice
-    ,"capacities: \n" + capacities);
+    console.log("Iteration: " + i + "\n");
+    console.log(matrice);
+    console.log(capacities);
   }
-  return capacities;
+  return interpret_results(products.length, matrice, capacities);
 }
 
 // ================ main ==================
@@ -168,4 +190,4 @@ function main(): void {
   console.log("results: ", results)
 }
 
-main();
+// main();
