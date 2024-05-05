@@ -5,5 +5,3 @@
 ## Deployed on Vercel:
 - [visite the app](https://simplexe-app.vercel.app/)
 
-
-# simplexe-app
