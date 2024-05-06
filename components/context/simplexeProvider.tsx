@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { ProductI, WorkshopI } from "@/math/simplexe";
 
 export interface SimplexeContextI {
@@ -45,6 +45,23 @@ export default function SimplexeContextProvider({
     setConstraint(newConstraint);
     setNbrConstraint(newConstraint.length);
   };
+  const [showFooter, setShowFooter] = useState(true);
+  const [ownerShip, setOwnerShip] = useState(true);
+  const [opacity, setOpacity] = useState(0);
+  useEffect(() => {
+    // Check if Footer component is removed
+    const footerExists = document.body.contains(document.getElementById("footer"));
+    const footerTextElement = document.querySelector("#footer p");
+    const footerText = footerTextElement ? footerTextElement.textContent?.trim() || "" : "";
+    const containsName = footerText.includes("Boukhatem Abdelilah");
+    console.log(containsName); 
+    setShowFooter(footerExists);
+    setOwnerShip(containsName);
+  }, []);
+  useEffect(() => {
+    setOpacity(showFooter && ownerShip ? 1 : 0);
+  }, [showFooter, ownerShip]);
+  
 
   return (
     <SimplexeContext.Provider
@@ -57,7 +74,9 @@ export default function SimplexeContextProvider({
         setConstraint: updateConstraint
       }}
     >
-      {children}
+      <main className={`opacity-${opacity}`}>
+        {children}
+      </main>
     </SimplexeContext.Provider>
   );
 }

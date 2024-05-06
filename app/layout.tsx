@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google"
+import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 
@@ -17,19 +17,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   return (
     <html lang="en">
-      <body className={cn(
+      <body
+        className={cn(
           "min-h-screen bg-background font-sans antialiased relative",
           fontSans.variable
-        )}>
+        )}
+      >
         <Header />
-        
-          {children}
-          <div className="absolute bottom-0 w-full">
-        <Footer />
-      </div>
-        </body>
+
+        {children}
+        <div className="absolute bottom-0 w-full">
+          <Footer />
+        </div>
+      </body>
     </html>
   );
 }
