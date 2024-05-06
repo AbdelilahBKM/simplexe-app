@@ -8,9 +8,9 @@ import { JSX, SVGProps } from "react"
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 py-6 w-full dark:bg-gray-800">
+    <footer id="footer" className="bg-gray-100 py-6 w-full dark:bg-gray-800">
       <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between">
-        <p className="text-sm text-gray-500 dark:text-gray-400"> 2024 Boukhatem Abdelilah.</p>
+        <p id="ownership" className="text-sm text-gray-500 dark:text-gray-400"> 2024 Boukhatem Abdelilah.</p>
         <div className="flex items-center space-x-4 mt-4 md:mt-0">
           <Link className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50" target="_blank" href="https://github.com/AbdelilahBKM/simplexe-app">
             <GithubIcon className="w-5 h-5" />

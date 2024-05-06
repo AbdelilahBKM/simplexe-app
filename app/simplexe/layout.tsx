@@ -6,11 +6,12 @@ export default function DashboardLayout({
   }: {
     children: React.ReactNode
   }) {
+    
     return (
-      <>
+      <main>
         <SimplexeContextProvidor>
             {children}
         </SimplexeContextProvidor>
-      </>
+      </main>
     )
   }
